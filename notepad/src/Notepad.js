@@ -96,8 +96,8 @@ class Notepad extends React.Component {
         .then(res => res.json())
         .then((response) => {
           if (!response.success) {
-            // received a fail message from the API
-            this.setState({currentError: response.message})
+            // received a failure message from the API
+            this.setState({currentError: response.message, isSaving: false});
           } else {
             if (this.state.currentNoteId === '') {
               // this was a new note, append it to this.state.noteList array
