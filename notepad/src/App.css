@@ -51,6 +51,7 @@ button {
   width: 20%;
   text-align: left;
   float: left;
+  padding-top: 5px;
 }
 
 .Notepad-App {
@@ -91,13 +92,15 @@ button {
 }
 
 .Note-Edit textarea {
-  width: 100%;
+  width: calc(100% - 20px);
   height: 85%;
   line-height: 1.75;
   font-size: 1.5em;
   margin-top: 10px;
   padding-left: 5px;
   padding-right: 5px;
+  margin-left: 10px;
+  border: 0;
 }
 
 .Note-Save-Button {
