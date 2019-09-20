@@ -1,0 +1,110 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #ffffff;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App {
+  min-height: 100vh;
+  margin: auto auto;
+  width: 85%;
+}
+
+.App-Header {
+  border-bottom: 1px solid black;
+  grid-column: 1 / span 2;
+  font-size: larger;
+  padding-bottom: 10px;
+}
+
+.App-Title {
+  width: 80%;
+  text-align: center;
+  float: left;
+}
+
+.App-Title input {
+  font-size: larger;
+  width: 95%;
+}
+
+button {
+  border: 0;
+  font-size: larger;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.Plus-Button {
+  width: 20%;
+  text-align: left;
+  float: left;
+}
+
+.Notepad-App {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto 95fr;
+  height: 100vh;
+}
+
+.Note-List {
+  min-height: 100%;
+  float: left;
+  text-align: left;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.Note-List ul {
+  list-style-type: none;
+}
+
+.Note-List li {
+  padding: 15px;
+  overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.Note-List li.selected {
+  background-color: lightblue;
+  font-weight: bold;
+}
+
+.Note-Edit {
+  border-left: 1px solid black;
+}
+
+.Note-Edit textarea {
+  width: 100%;
+  height: 85%;
+  line-height: 1.75;
+  font-size: 1.5em;
+  margin-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.Note-Save-Button {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
