@@ -156,8 +156,8 @@ class Notepad extends React.Component {
       <div className="Note-Edit">
         {this.state.currentError && <div className="error">{this.state.currentError}</div>}
         <textarea name="Note-Edit-Textarea" id="currentNoteText" value={this.state.currentNoteText} onChange={this.updateCurrentNote} disabled={this.state.isSaving}></textarea>
-        <div className="Note-Save-Button">
-          <button onClick={this.saveCurrentNote} disabled={this.state.isSaving}>Save</button>
+        <div className="Note-Save-Div">
+          <button onClick={this.saveCurrentNote} disabled={this.state.isSaving} className="Note-Save-Button">Save</button>
         </div>
       </div>
     </div>)

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: #747474;
 }
 
 .App-header {
@@ -38,6 +39,8 @@
 .App-Title input {
   font-size: larger;
   width: 95%;
+  color: #747474;
+  margin-top: 5px;
 }
 
 button {
@@ -51,7 +54,7 @@ button {
   width: 20%;
   text-align: left;
   float: left;
-  padding-top: 5px;
+  padding-top: 10px;
 }
 
 .Notepad-App {
@@ -100,15 +103,21 @@ button {
   padding-left: 5px;
   padding-right: 5px;
   margin-left: 10px;
-  border: 0;
+  color: #747474;
 }
 
-.Note-Save-Button {
+.Note-Save-Div {
   margin-top: 10px;
   text-align: right;
 }
 
+.Note-Save-Button {
+  color: #5266a3;
+  font-weight: bold;
+}
+
 .error {
+  padding-top: 5px;
   color: red;
   font-weight: bold;
 }
