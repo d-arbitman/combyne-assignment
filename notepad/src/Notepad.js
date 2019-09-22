@@ -1,8 +1,10 @@
 import React from 'react';
+import NoteList from './Components/NoteList.js';
 
 class Notepad extends React.Component {
   constructor(props) {
     super(props);
+    this.noteListRef = null;
     this.state = {
       isLoaded: false,
       isSaving: false,
@@ -32,8 +34,7 @@ class Notepad extends React.Component {
   * @param e event object
   */
   updateDisplayedNote = (e) => {
-    e.preventDefault();
-    const currentNote = this.state.noteList.filter(note => e.target.id === note.objectId)[0];
+    const currentNote = this.state.noteList.filter(note => e === note.objectId)[0];
     this.setState({
       currentNoteId: currentNote.objectId,
       currentNoteText: currentNote.text,
@@ -58,6 +59,7 @@ class Notepad extends React.Component {
   */
   newNote = (e) => {
     e.preventDefault();
+    this.noteListRef.newNote();
     this.setState({currentNoteId: '', currentNoteText: '', currentNoteTitle: ''});
   }
 
@@ -138,26 +140,31 @@ class Notepad extends React.Component {
           <button onClick={this.newNote}>+</button>
         </div>
         <div className="App-Title">
-          <input type="text" name="currentNoteTitle" id="currentNoteTitle" value={this.state.currentNoteTitle} onChange={this.updateCurrentNote} disabled={this.state.isSaving} />
+          <input
+            type="text"
+            name="currentNoteTitle"
+            id="currentNoteTitle"
+            value={this.state.currentNoteTitle}
+            onChange={this.updateCurrentNote}
+            disabled={this.state.isSaving} />
         </div>
       </div>
-      <div className="Note-List">
-        <ul>
-          {this.state.noteList.map(
-            note =>
-            <li key={note.objectId} id={note.objectId}
-              className={(note.objectId === this.state.currentNoteId) ? 'selected' : ''}
-              onClick={this.updateDisplayedNote}>
-              {(note.title.length > 40) ? note.title.substr(0, 25) + '...' : note.title}
-            </li>
-          )}
-        </ul>
-      </div>
+      <NoteList
+        list={this.state.noteList}
+        onNoteListClick={this.updateDisplayedNote}
+        ref={(ref) => this.noteListRef = ref} />
       <div className="Note-Edit">
         {this.state.currentError && <div className="error">{this.state.currentError}</div>}
-        <textarea name="Note-Edit-Textarea" id="currentNoteText" value={this.state.currentNoteText} onChange={this.updateCurrentNote} disabled={this.state.isSaving}></textarea>
+        <textarea name="Note-Edit-Textarea"
+          id="currentNoteText"
+          value={this.state.currentNoteText}
+          onChange={this.updateCurrentNote}
+          disabled={this.state.isSaving}>
+        </textarea>
         <div className="Note-Save-Div">
-          <button onClick={this.saveCurrentNote} disabled={this.state.isSaving} className="Note-Save-Button">Save</button>
+          <button onClick={this.saveCurrentNote} disabled={this.state.isSaving} className="Note-Save-Button">
+            Save
+          </button>
         </div>
       </div>
     </div>)
