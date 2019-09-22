@@ -59,8 +59,9 @@ class Notepad extends React.Component {
   */
   newNote = (e) => {
     e.preventDefault();
-    this.noteListNewNoteClick();
-    //this.noteListRef.newNote();
+    if(typeof this.noteListNewNoteClick === "function") {
+      this.noteListNewNoteClick();
+    }
     this.setState({currentNoteId: '', currentNoteText: '', currentNoteTitle: ''});
   }
 
@@ -152,6 +153,7 @@ class Notepad extends React.Component {
       </div>
       <NoteList
         list={this.state.noteList}
+        currentNoteId={this.state.currentNoteId}
         onNoteListClick={this.updateDisplayedNote}
         onNewNoteClick={newNoteClick => this.noteListNewNoteClick = newNoteClick} />
       <div className="Note-Edit">

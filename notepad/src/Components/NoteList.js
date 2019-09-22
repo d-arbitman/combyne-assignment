@@ -10,8 +10,14 @@ class NoteList extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.onNewNoteClick(this.newNote);
+  }
+
+  componentWillReceiveProps = (props) => {
+    this.setState({
+      currentNoteId: props.currentNoteId
+    });
   }
 
   updateDisplayedNote = (e) => {
