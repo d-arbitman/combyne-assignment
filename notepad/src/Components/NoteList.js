@@ -5,8 +5,13 @@ class NoteList extends React.Component {
     super(props);
     this.state = {
       onNoteListClick: this.props.onNoteListClick,
+      onNewNoteClick: this.props.onNewNoteClick,
       currentNoteId: ''
-    }
+    };
+  }
+
+  componentDidMount() {
+    this.props.onNewNoteClick(this.newNote);
   }
 
   updateDisplayedNote = (e) => {
@@ -19,6 +24,7 @@ class NoteList extends React.Component {
   }
 
   newNote = () => {
+    this.state.onNewNoteClick();
     this.setState({
       currentNoteId: ''
     });

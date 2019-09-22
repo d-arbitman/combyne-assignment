@@ -59,7 +59,8 @@ class Notepad extends React.Component {
   */
   newNote = (e) => {
     e.preventDefault();
-    this.noteListRef.newNote();
+    this.noteListNewNoteClick();
+    //this.noteListRef.newNote();
     this.setState({currentNoteId: '', currentNoteText: '', currentNoteTitle: ''});
   }
 
@@ -152,7 +153,7 @@ class Notepad extends React.Component {
       <NoteList
         list={this.state.noteList}
         onNoteListClick={this.updateDisplayedNote}
-        ref={(ref) => this.noteListRef = ref} />
+        onNewNoteClick={newNoteClick => this.noteListNewNoteClick = newNoteClick} />
       <div className="Note-Edit">
         {this.state.currentError && <div className="error">{this.state.currentError}</div>}
         <textarea name="Note-Edit-Textarea"
