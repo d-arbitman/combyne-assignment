@@ -38,7 +38,7 @@
 
 .App-Title input {
   font-size: larger;
-  width: 95%;
+  width: calc(100% - 20px);
   color: #747474;
   margin-top: 5px;
 }
