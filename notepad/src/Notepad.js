@@ -12,7 +12,7 @@ class Notepad extends React.Component {
       currentNoteText: '',
       currentNoteTitle: '',
       currentError: '',
-      noteList: []
+      noteList: null
     };
 
     this.updateDisplayedNote = this.updateDisplayedNote.bind(this);

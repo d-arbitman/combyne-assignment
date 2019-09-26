@@ -121,3 +121,7 @@ button {
   color: red;
   font-weight: bold;
 }
+
+.center {
+  text-align: center;
+}

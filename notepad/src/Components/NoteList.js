@@ -1,4 +1,5 @@
 import React from 'react';
+import {BeatLoader} from 'react-spinners';
 
 class NoteList extends React.Component {
   constructor(props) {
@@ -38,20 +39,32 @@ class NoteList extends React.Component {
 
   render() {
     const noteList = this.props.list;
-    return (
-      <div className="Note-List">
-        <ul>
-          {noteList.map(
-            note =>
-            <li key={note.objectId} id={note.objectId}
-              className={(note.objectId === this.state.currentNoteId) ? 'selected' : ''}
-              onClick={this.updateDisplayedNote}>
-              {(note.title.length > 40) ? note.title.substr(0, 25) + '...' : note.title}
-            </li>
-          )}
-        </ul>
-      </div>
-    );
+    console.log("noteList: ", noteList, ", type: ", typeof noteList);
+    if (noteList === null) {
+      return (
+        <div className="Note-List">
+          <div className="center">
+            Loading...<br />
+            <BeatLoader />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="Note-List">
+          <ul>
+            {noteList.map(
+              note =>
+              <li key={note.objectId} id={note.objectId}
+                className={(note.objectId === this.state.currentNoteId) ? 'selected' : ''}
+                onClick={this.updateDisplayedNote}>
+                {(note.title.length > 40) ? note.title.substr(0, 25) + '...' : note.title}
+              </li>
+            )}
+          </ul>
+        </div>
+      );
+    }
   }
 }
 
