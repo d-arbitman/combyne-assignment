@@ -12,21 +12,48 @@ class Notepad extends React.Component {
       currentNoteText: '',
       currentNoteTitle: '',
       currentError: '',
+      currentAPIError: '',
       noteList: null
     };
 
     this.updateDisplayedNote = this.updateDisplayedNote.bind(this);
   }
 
+  handleAPIErrors = (res) => {
+    console.log(res);
+    if (!res.ok) {
+      console.log(res);
+      const state = {
+        "isLoaded": true,
+        "noteList":[],
+        "currentAPIError": (res.status === 500) ? "Could not contact backend API" : "An unknown error occurred"
+      };
+      this.setState(state);
+      return state;
+    }
+    return res;
+  }
+
   /**
   * fetch all notes from backend
   */
   componentDidMount = () => {
-    fetch("/api/notes").then(res => res.json()).then((result) => {
-      this.setState({isLoaded: true, noteList: result.notes});
-    }, (error) => {
-      console.error(error);
-    });
+    fetch("/api/notes")
+    .then(this.handleAPIErrors)
+    .then((res) => {
+        if(!res.hasOwnProperty("isLoaded")){
+          return res.json();
+        } else {
+          return res;
+        }
+      })
+    .then((result) => {
+      if(result) {
+        this.setState({isLoaded: true, noteList: result.notes});
+      } else {
+        this.setState(result);
+      }
+    })
   }
 
   /**
@@ -136,41 +163,45 @@ class Notepad extends React.Component {
   }
 
   render() {
-    return (<div className="Notepad-App">
-      <div className="App-Header">
-        <div className="Plus-Button">
-          <button onClick={this.newNote}>+</button>
+    if(this.state.currentAPIError) {
+      return <div className="error">{this.state.currentAPIError}</div>
+    } else {
+      return (<div className="Notepad-App">
+        <div className="App-Header">
+          <div className="Plus-Button">
+            <button onClick={this.newNote}>+</button>
+          </div>
+          <div className="App-Title">
+            <input
+              type="text"
+              name="currentNoteTitle"
+              id="currentNoteTitle"
+              value={this.state.currentNoteTitle}
+              onChange={this.updateCurrentNote}
+              disabled={this.state.isSaving} />
+          </div>
         </div>
-        <div className="App-Title">
-          <input
-            type="text"
-            name="currentNoteTitle"
-            id="currentNoteTitle"
-            value={this.state.currentNoteTitle}
+        <NoteList
+          list={this.state.noteList}
+          currentNoteId={this.state.currentNoteId}
+          onNoteListClick={this.updateDisplayedNote}
+          onNewNoteClick={newNoteClick => this.noteListNewNoteClick = newNoteClick} />
+        <div className="Note-Edit">
+          {this.state.currentError && <div className="error">{this.state.currentError}</div>}
+          <textarea name="Note-Edit-Textarea"
+            id="currentNoteText"
+            value={this.state.currentNoteText}
             onChange={this.updateCurrentNote}
-            disabled={this.state.isSaving} />
+            disabled={this.state.isSaving}>
+          </textarea>
+          <div className="Note-Save-Div">
+            <button onClick={this.saveCurrentNote} disabled={this.state.isSaving} className="Note-Save-Button">
+              Save
+            </button>
+          </div>
         </div>
-      </div>
-      <NoteList
-        list={this.state.noteList}
-        currentNoteId={this.state.currentNoteId}
-        onNoteListClick={this.updateDisplayedNote}
-        onNewNoteClick={newNoteClick => this.noteListNewNoteClick = newNoteClick} />
-      <div className="Note-Edit">
-        {this.state.currentError && <div className="error">{this.state.currentError}</div>}
-        <textarea name="Note-Edit-Textarea"
-          id="currentNoteText"
-          value={this.state.currentNoteText}
-          onChange={this.updateCurrentNote}
-          disabled={this.state.isSaving}>
-        </textarea>
-        <div className="Note-Save-Div">
-          <button onClick={this.saveCurrentNote} disabled={this.state.isSaving} className="Note-Save-Button">
-            Save
-          </button>
-        </div>
-      </div>
-    </div>)
+      </div>);
+    }
   }
 }
 

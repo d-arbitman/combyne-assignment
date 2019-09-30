@@ -39,7 +39,6 @@ class NoteList extends React.Component {
 
   render() {
     const noteList = this.props.list;
-    console.log("noteList: ", noteList, ", type: ", typeof noteList);
     if (noteList === null) {
       return (
         <div className="Note-List">
