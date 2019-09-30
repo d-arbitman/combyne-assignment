@@ -10,7 +10,7 @@ exports.list_notes = (req, res) => {
   query.find().then((notes) => {
     res.json({"success": true, notes});
   }, (error) => {
-    res.json({"success": false, "messsage": error});
+    res.json({"success": false, "message": error});
   });
 
 }

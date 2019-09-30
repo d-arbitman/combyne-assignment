@@ -48,10 +48,10 @@ class Notepad extends React.Component {
         }
       })
     .then((result) => {
-      console.log(result);
       if(result.success) {
         this.setState({isLoaded: true, noteList: result.notes});
       } else {
+        console.error(result);
         this.setState({isLoaded: true, currentAPIError: result.message.message});
       }
     })
