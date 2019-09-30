@@ -20,7 +20,6 @@ class Notepad extends React.Component {
   }
 
   handleAPIErrors = (res) => {
-    console.log(res);
     if (!res.ok) {
       console.log(res);
       const state = {
